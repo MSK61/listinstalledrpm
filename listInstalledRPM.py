@@ -34,9 +34,8 @@ Usage: listInstalledRPM.py LOGFILE
 #
 # author:       Mohammed Safwat (MS)
 #
-# environment:  KWrite 4.3.1, python 2.5.2, Fedora release 10
-#               (Cambridge)
-#               Kate 4.3.1, python 2.6, Fedora release 11 (Leonidas)
+# environment:  Kate 4.3.1, python 2.6, Fedora release 11 (Leonidas)
+#               KWrite 4.3.1, python 2.6, Fedora release 11 (Leonidas)
 #
 # notes:        This is a private program.
 #
@@ -88,7 +87,13 @@ def main(argv=None):
 
 
 def run(in_log_file):
-    """Identify the installed packages from the input file."""
+    """Identify the installed packages from the input file.
+
+    `in_log_file` is the yum log file to parse.
+    The function reads in the provided yum log file and idfer which
+    packages are still installed after passing through the og
+    operations. The results are dumpted to an output file.
+    """
     # some filters to identify different package operations
     op_pkg_sep = ": "  # separator between the operation and the package
     install_filter = compile("Installed" + op_pkg_sep + r"(?:\d+:)?(.+?)-\d")
@@ -130,7 +135,11 @@ def run(in_log_file):
 
 
 def _remove_pkg(pkg_set, pkg):
-    """Remove the specified package from the package set."""
+    """Remove the specified package from the package set.
+
+    `pkg_set` is the package set to exclude from.
+    `pkg` is the package to be excluded.
+    """
     debug("Excluding package %s...", pkg)
     pkg_set.remove(pkg)
 
