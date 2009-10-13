@@ -80,25 +80,26 @@ def process_command_line(argv):
     return settings, args
 
 def main(argv=None):
+    out_file = "rpmResult"
     args = process_command_line(argv)[1]
     logging.basicConfig(level=logging.INFO)
-    run(args[0])
+    run(args[0], out_file)
     return os.EX_OK        # success
 
 
-def run(in_log_file):
+def run(in_log_file, out_file):
     """Identify the installed packages from the input file.
 
     `in_log_file` is the yum log file to parse.
-    The function reads in the provided yum log file and idfer which
-    packages are still installed after passing through the og
-    operations. The results are dumpted to an output file.
+    `out_file` is the output file to dump the results into.
+    The function reads in the provided yum log file and infer which
+    packages are still installed after passing through the log
+    operations. The results are dumped to an output file.
     """
     # some filters to identify different package operations
     op_pkg_sep = ": "  # separator between the operation and the package
     install_filter = compile("Installed" + op_pkg_sep + r"(?:\d+:)?(.+?)-\d")
     erase_filter = compile("(?<=Erased" + op_pkg_sep + ").+")
-    out_file = "rpmResult"
     # Process the input file.
     info("Parsing input file %s...", in_log_file)
     pkg_set = set()
@@ -113,7 +114,7 @@ def run(in_log_file):
                 debug("Found installed package %s!", pkg_name)
                 pkg_set.add(pkg_info.group(1))
 
-            else:  # If the package has been remvoed, exclude it.
+            else:  # If the package has been removed, exclude it.
 
                 pkg_info = erase_filter.search(line)
 
