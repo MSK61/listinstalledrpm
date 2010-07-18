@@ -13,12 +13,12 @@ Usage: listInstalledRPM.py LOGFILE
 # it under the terms of the GNU Lesser General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or(at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-
+#
 # You should have received a copy of the GNU Lesser General Public
 # License along with this program.  If not, see
 # <http://www.gnu.org/licenses/>.
@@ -95,10 +95,11 @@ def run(in_log_file, out_file):
     The function reads in the provided yum log file and infer which
     packages are still installed after passing through the log
     operations. The results are dumped to an output file.
+
     """
     # some filters to identify different package operations
     op_pkg_sep = ": "  # separator between the operation and the package
-    install_filter = compile("Installed" + op_pkg_sep + r"(?:\d+:)?(.+?)-\d")
+    install_filter = compile("Installed" + op_pkg_sep + "(?:\d+:)?(.+?)-\d")
     erase_filter = compile("(?<=Erased" + op_pkg_sep + ").+")
     # Process the input file.
     info("Parsing input file %s...", in_log_file)
@@ -112,7 +113,7 @@ def run(in_log_file, out_file):
 
                 pkg_name = pkg_info.group(1)
                 debug("Found installed package %s!", pkg_name)
-                pkg_set.add(pkg_info.group(1))
+                pkg_set.add(pkg_name)
 
             else:  # If the package has been removed, exclude it.
 
@@ -129,9 +130,10 @@ def run(in_log_file, out_file):
     info("Finished reading input file %s, dumping results to file %s...",
         in_log_file, out_file)
     # Dump results.
-    with open(out_file, 'w') as res_file:
+    write_permit = 'w'
+    with open(out_file, write_permit) as res_file:
         for pkg_name in pkg_set:
-            res_file.write(pkg_name + '\n')
+            res_file.write(pkg_name + os.linesep)
     info("Done!")
 
 
@@ -140,6 +142,7 @@ def _remove_pkg(pkg_set, pkg):
 
     `pkg_set` is the package set to exclude from.
     `pkg` is the package to be excluded.
+
     """
     debug("Excluding package %s...", pkg)
     pkg_set.remove(pkg)
