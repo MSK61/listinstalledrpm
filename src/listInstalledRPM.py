@@ -38,6 +38,7 @@ Usage: listInstalledRPM.py LOGFILE
 #
 # environment:  Kate 4.3.1, python 2.6, Fedora release 11 (Leonidas)
 #               KWrite 4.3.1, python 2.6, Fedora release 11 (Leonidas)
+#               Vim 7.2, python 2.6.4, Fedora release 13 (Goddard)
 #
 # notes:        This is a private program.
 #
@@ -101,7 +102,8 @@ def run(in_log_file, out_file):
     """
     # some filters to identify different package operations
     op_pkg_sep = ": "  # separator between the operation and the package
-    install_filter = compile("Installed" + op_pkg_sep + "(?:\d+:)?(.+?)-\d")
+    install_filter = \
+        compile("Installed" + op_pkg_sep + "(?:\d+:)?(.+)-\d.*-\d")
     erase_filter = compile("(?<=Erased" + op_pkg_sep + ").+")
     # Process the input file.
     info("Parsing input file %s...", in_log_file)
