@@ -9,7 +9,7 @@ Usage: listInstalledRPM.py LOGFILE
 
 ############################################################
 #
-# Copyright 2009, 2010 Mohammed El-Afifi
+# Copyright 2009, 2010, 2011 Mohammed El-Afifi
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -40,6 +40,7 @@ Usage: listInstalledRPM.py LOGFILE
 #               KWrite 4.3.1, python 2.6, Fedora release 11 (Leonidas)
 #               Vim 7.2, python 2.6.4, Fedora release 13 (Goddard)
 #               KWrite 4.5.5, python 2.7, Fedora release 14 (Laughlin)
+#               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
 #
 # notes:        This is a private program.
 #
@@ -78,7 +79,7 @@ def process_command_line(argv):
 
     if extra_args:
         parser.error('program takes exactly one yum log file; ' +
-                     (('"%s" ignored' % args[mandatory_args:]) if
+                     ('"{}" ignored'.format(args[mandatory_args:]) if
                      extra_args > 0 else "none specified") + '.')
 
     return settings, args
