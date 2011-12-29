@@ -41,6 +41,7 @@ Usage: listInstalledRPM.py LOGFILE
 #               Vim 7.2, python 2.6.4, Fedora release 13 (Goddard)
 #               KWrite 4.5.5, python 2.7, Fedora release 14 (Laughlin)
 #               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
+#               KWrite 4.7.4, python 2.7.2, Fedora release 16 (Verne)
 #
 # notes:        This is a private program.
 #
@@ -78,9 +79,10 @@ def process_command_line(argv):
     extra_args = len(args) - mandatory_args
 
     if extra_args:
-        parser.error('program takes exactly one yum log file; ' +
-                     ('"{}" ignored'.format(args[mandatory_args:]) if
-                     extra_args > 0 else "none specified") + '.')
+        parser.error('program takes exactly one yum log file; '
+                     '{}.'.format(
+                     '"{}" ignored'.format(args[mandatory_args:]) if
+                     extra_args > 0 else "none specified"))
 
     return settings, args
 
