@@ -9,7 +9,7 @@ Usage: listInstalledRPM.py LOGFILE
 
 ############################################################
 #
-# Copyright 2009, 2010, 2011 Mohammed El-Afifi
+# Copyright 2009, 2010, 2011, 2012 Mohammed El-Afifi
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -87,9 +87,9 @@ def process_command_line(argv):
     return settings, args
 
 def main(argv=None):
-    out_file = "rpmResult"
     args = process_command_line(argv)[1]
     logging.basicConfig(level=logging.INFO)
+    out_file = "rpmResult"
     run(args[0], out_file)
     return os.EX_OK        # success
 
