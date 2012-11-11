@@ -141,7 +141,7 @@ def run(in_log_file, out_file):
     write_permit = 'w'
     with open(out_file, write_permit) as res_file:
         for pkg_name in pkg_set:
-            res_file.write(pkg_name + os.linesep)
+            res_file.write(pkg_name + '\n')
     info("Done!")
 
 
