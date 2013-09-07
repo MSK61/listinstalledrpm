@@ -9,7 +9,7 @@ Usage: listInstalledRPM.py LOGFILE
 
 ############################################################
 #
-# Copyright 2009, 2010, 2011, 2012 Mohammed El-Afifi
+# Copyright 2009, 2010, 2011, 2012, 2013 Mohammed El-Afifi
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -42,6 +42,8 @@ Usage: listInstalledRPM.py LOGFILE
 #               KWrite 4.5.5, python 2.7, Fedora release 14 (Laughlin)
 #               KWrite 4.6.5, python 2.7.1, Fedora release 15 (Lovelock)
 #               KWrite 4.7.4, python 2.7.2, Fedora release 16 (Verne)
+#               KWrite 4.10.5, python 2.7.2, Fedora release 19
+#               (Schrödinger’s Cat)
 #
 # notes:        This is a private program.
 #
@@ -141,7 +143,7 @@ def run(in_log_file, out_file):
     write_permit = 'w'
     with open(out_file, write_permit) as res_file:
         for pkg_name in pkg_set:
-            res_file.write(pkg_name + '\n')
+            print >> res_file, pkg_name
     info("Done!")
 
 
